@@ -6,32 +6,36 @@
 // Example Output:
 // console.log(reliableMultiply(8, 8)); // outputs 64
 
+// Define a custom error class called MultiplicatorUnitFailure that extends the built-in Error class
 class MultiplicatorUnitFailure extends Error {}
-// the function that multiplies the two numbers
+
+// Function that attempts to multiply two numbers
 function primitiveMultiply(a, b) {
-  if (Math.random() < 0.2) { // 20 percent chance that the two numbers will get multiplied, the other 80 percent raises an exception
+  // 20% of the time, return the product of the two numbers
+  if (Math.random() < 0.2) {
     return a * b;
   } else {
-    //80 percent of the time it will through MuliplicationUnitFailure Exception aka Klunk
+    // 80% of the time, throw a MultiplicatorUnitFailure exception
     throw new MultiplicatorUnitFailure("Klunk");
   }
 }
-// uses function reliableMultiply for variables a & b
+
+// Function that attempts to reliably multiply two numbers using the primitiveMultiply function
 function reliableMultiply(a, b) {
-  // Your code here.
-  // use while function so it continues to loop and keeps trying to multiply the numbers until it succeeds
+  // Enter an infinite loop to keep trying until the multiplication succeeds
   while (true) {
     try {
-      // here it tries to multiply the numbers
+      // Attempt to multiply the numbers
       return primitiveMultiply(a, b);
     } catch (e) {
-      // If a the MultiplicatorUnitFailure exception is caught, ignores it and tries again
-      if (!(e instanceof MultiplactorUnitFailure)) {
-        // any other exception that is caught rethrows it
+      // If a MultiplicatorUnitFailure exception is caught, ignore it and try again
+      if (!(e instanceof MultiplicatorUnitFailure)) {
+        // If any other type of exception is caught, rethrow it
         throw e;
       }
     }
   }
 }
-// this tests reliableMultiply with the numbers 9 , 9
-console.log(relatibleMultiply(9, 9)); // outputs 81
+
+// Test the reliableMultiply function with the numbers 9 and 9
+console.log(reliableMultiply(9, 9)); // outputs 81
