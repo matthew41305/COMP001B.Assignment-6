@@ -9,13 +9,9 @@
 class MultiplicatorUnitFailure extends Error {}
 
 function primitiveMultiply(a, b) {
-  if (Math.random() < 0.2) {
+  if (Math.random() < 0.2) { // 20 percent chance that the two numbers will get multiplied, the other 80 percent raises an exception
     return a * b;
   } else {
     throw new MultiplicatorUnitFailure("Klunk");
   }
-}
-
-function reliableMultiply(a, b) {
-  // Your code here.
 }
